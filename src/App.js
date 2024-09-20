@@ -1,26 +1,29 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Pagina from "./componentes/layouts/Pagina";
-import Tela404 from "./componentes/Telas/Tela404";
-import TelaCadProduto from "./componentes/Telas/TelaCadProduto";
+import TelaCadCli from "./componentes/Telas/TelaCadCli";
+import TelaCadCat from "./componentes/Telas/TelaCadCat";
+import TelaCadProd from "./componentes/Telas/TelaCadProd";
+import TelaCadForn from "./componentes/Telas/TelaCadForn";
 import TelaMenu from "./componentes/Telas/TelaMenu";
-import TelaCadCategoria from "./componentes/Telas/TelaCadCategoria";
+import Tela404 from "./componentes/Telas/Tela404";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 function App() {
-  return (
-    <div className="App">
-      <BrowserRouter>
-      {
-        //a ordem das rotas é importante
-      }
-        <Routes>  
-          <Route path="/produto" element={<TelaCadProduto/>}/>
-          <Route path="/categoria" element={<TelaCadCategoria/>}/>
-          <Route path="/" element={<TelaMenu/>}/>
-          <Route path="*" element={<Tela404/>}/>
-          </Routes>
-      </BrowserRouter>
-    </div>
-  );
+	return (
+		<div>
+			<BrowserRouter>
+				{
+					//A ordem das rotas é importante
+				}
+				<Routes>
+					<Route path="/" element={<TelaMenu />} />
+					<Route path="/cliente" element={<TelaCadCli />} />
+					<Route path="/fornecedor" element={<TelaCadForn />} />
+					<Route path="/produto" element={<TelaCadProd />} />
+					<Route path="/categoria" element={<TelaCadCat />} />
+					<Route path="*" element={<Tela404 />} />
+				</Routes>
+			</BrowserRouter>
+		</div>
+	);
 }
 
 export default App;
