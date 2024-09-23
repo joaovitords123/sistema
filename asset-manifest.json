@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/sistema/static/css/main.d221dc40.css",
+    "main.js": "/sistema/static/js/main.b1f390d6.js",
+    "static/media/Page_not_Found.png": "/sistema/static/media/Page_not_Found.8ea29b79050e7de7d63c.png",
+    "index.html": "/sistema/index.html",
+    "main.d221dc40.css.map": "/sistema/static/css/main.d221dc40.css.map",
+    "main.b1f390d6.js.map": "/sistema/static/js/main.b1f390d6.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.d221dc40.css",
+    "static/js/main.b1f390d6.js"
+  ]
+}
