@@ -7,6 +7,9 @@ import { produtos } from "../../dados/mockProdutos"
 
 export default function TelaCadCli(props) {
     const [exibirTabela, setExibirTabela] = useState(true);
+    const [modoEdicao, setModoEdicao] = useState(false);
+    const [listaDeProdutos, setListaDeProdutos] = useState();
+    const [produtoSelecionado, setProdutoSelecionado] = useState({});
     return (
         <>
             <Pagina>
@@ -15,7 +18,13 @@ export default function TelaCadCli(props) {
                         Cadastro de produtos
                     </h2>
                 </Alert>
-                {exibirTabela ? <TabProdutos listaDeProdutos={produtos} setExibirTabela={setExibirTabela} /> : <CadProd setExibirTabela={setExibirTabela}/>}
+                {exibirTabela ? 
+                <TabProdutos listaDeProdutos={produtos} 
+                setExibirTabela={setExibirTabela} 
+                setModoEdicao={setModoEdicao}
+                setProdutoSelecionado={setProdutoSelecionado}/> :
+                 <CadProd setExibirTabela={setExibirTabela}
+                 />}
             </Pagina>
         </>
     );

@@ -1,5 +1,10 @@
 import { Button, Container, Table } from "react-bootstrap";
 export default function TabProduto(props) {
+    function editarProduto(produto){
+        props.setModoEdicao(true);
+        props.setProdutoSelecionado(produto);
+        props.setExibirTabela(false);
+    }
     return(
         <>
             <Container>
