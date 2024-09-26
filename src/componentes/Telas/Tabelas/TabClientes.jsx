@@ -73,6 +73,7 @@ export default function TabClientes(props) {
                         }
                     </tbody>
                 </Table>
+                <p>Quantidade de fornecedores cadastrados: {props.listaDeClientes.length}</p>
             </Container>
         </>
     )

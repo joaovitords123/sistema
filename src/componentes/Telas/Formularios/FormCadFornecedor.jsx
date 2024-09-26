@@ -3,11 +3,72 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
+import { useState } from 'react';
 
-export default function CadForn(props) {
+export default function FormCadFornecedor(props) {
+    const [fornecedor, setFornecedor] = useState(props.fornecedorSelecionado);
+    const [formValidade, setFormValidade] = useState(false);
+    function manipularSubmissao(evento){
+        const form = evento.currentTarget;
+        if (form.checkValidity()){
+            
+            if (!props.modoEdicao){
+                //cadastrar o produto
+                props.setListaDeFornecedores([...props.listaDeFornecedores, fornecedor]);
+                //exibir tabela com o produto incluído
+                props.setExibirTabela(true);
+            }
+            else{
+                //editar o produto
+                /*altera a ordem dos registros
+                props.setListaDeProdutos([...props.listaDeProdutos.filter(
+                    (item) => {
+                        return item.codigo !== produto.codigo;
+                    }
+                ), produto]);*/
+
+                //não altera a ordem dos registros
+                props.setListaDeFornecedores(props.listaDeFornecedores.map((item) => {
+                    if (item.cnpj !== fornecedor.cnpj)
+                        return item
+                    else
+                        return fornecedor
+                }));
+
+                //voltar para o modo de inclusão
+                props.setModoEdicao(false);
+                props.setFornecedorSelecionado({
+                    nome:"",
+                    cnpj:"",
+                    bairro:"",
+                    cidade:"",
+                    rua:"",
+                    num:"0",
+                    cep:"",
+                    tel:"",
+                    email:""
+                });
+                props.setExibirTabela(true);
+            }
+
+        }
+        else{
+            setFormValidade(true);
+        }
+        evento.preventDefault();
+        evento.stopPropagation();
+
+    }
+
+    function manipularMudanca(evento){
+        const elemento = evento.target.name;
+        const valor    = evento.target.value; 
+        setFornecedor({...fornecedor, [elemento]:valor});
+    }
+
     return (
         <>
-            <Form noValidate>
+            <Form noValidate validated={formValidade} onSubmit={manipularSubmissao}>
 
                 <Row className="mb-4">
                     <Form.Group as={Col} md="12" controlId="validationFormik01">
@@ -15,6 +76,8 @@ export default function CadForn(props) {
                         <Form.Control
                             type="text"
                             name="nome"
+                            value={fornecedor.nome}
+                            onChange={manipularMudanca}
                         />
                         <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
                     </Form.Group>
@@ -27,6 +90,9 @@ export default function CadForn(props) {
                             type="text"
                             placeholder="Cnpj"
                             name="cnpj"
+                            value={fornecedor.cnpj}
+                            disabled={props.modoEdicao}
+                            onChange={manipularMudanca}
                         />
                         <Form.Control.Feedback type="invalid">
                         </Form.Control.Feedback>
@@ -38,6 +104,8 @@ export default function CadForn(props) {
                             type="text"
                             placeholder="Bairro"
                             name="bairro"
+                            value={fornecedor.bairro}
+                            onChange={manipularMudanca}
                         />
                         <Form.Control.Feedback type="invalid">
                         </Form.Control.Feedback>
@@ -49,6 +117,8 @@ export default function CadForn(props) {
                             type="text"
                             placeholder="Cidade"
                             name="cidade"
+                            value={fornecedor.cidade}
+                            onChange={manipularMudanca}
                         />
                         <Form.Control.Feedback type="invalid">
                         </Form.Control.Feedback>
@@ -62,6 +132,8 @@ export default function CadForn(props) {
                             type="text"
                             placeholder="Rua"
                             name="rua"
+                            value={fornecedor.rua}
+                            onChange={manipularMudanca}
                         />
                         <Form.Control.Feedback type="invalid">
                         </Form.Control.Feedback>
@@ -73,6 +145,8 @@ export default function CadForn(props) {
                             type="text"
                             placeholder="Número"
                             name="num"
+                            value={fornecedor.num}
+                            onChange={manipularMudanca}
                         />
                         <Form.Control.Feedback type="invalid">
                         </Form.Control.Feedback>
@@ -84,6 +158,8 @@ export default function CadForn(props) {
                             type="text"
                             placeholder="Cep"
                             name="cep"
+                            value={fornecedor.cep}
+                            onChange={manipularMudanca}
                         />
                         <Form.Control.Feedback type="invalid">
                         </Form.Control.Feedback>
@@ -97,6 +173,8 @@ export default function CadForn(props) {
                             type="text"
                             placeholder="Telefone"
                             name="tel"
+                            value={fornecedor.tel}
+                            onChange={manipularMudanca}
                         />
                         <Form.Control.Feedback type="invalid">
                         </Form.Control.Feedback>
@@ -119,7 +197,7 @@ export default function CadForn(props) {
 
                 <Row className='mt-2 mb-2'>
                     <Col md={1}>
-                        <Button type='submit'>Confirmar</Button>
+                        <Button type="submit">{props.modoEdicao ? "Alterar":"Confirmar"}</Button>
                     </Col>
                     <Col md={{offset:1}}> 
                         <Button onClick={() => {
