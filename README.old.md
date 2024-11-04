@@ -1,2 +1,2 @@
 # sistema
-Desenvolvimento do sistema comercial da empresa ACME
+Desenvolvimento do sistema comercial da empresa ACME.
