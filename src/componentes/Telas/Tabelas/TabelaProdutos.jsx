@@ -1,4 +1,6 @@
 import { Button, Container, Table } from "react-bootstrap";
+import {deletarProduto} from '../../../servicos/servicoProduto';
+import toast, {Toaster} from 'react-hot-toast';
 
 export default function TabelaProdutos(props) {
 
@@ -11,19 +13,19 @@ export default function TabelaProdutos(props) {
     function excluirProduto(produto){
         if(window.confirm("Deseja realmente excluir o produto " + produto.descricao)){
             //abordagem utilizando a sintaxe permitida da linguagem
-            props.setListaDeProdutos(props.listaDeProdutos.filter(
-                (item)=>{
-                            return item.codigo != produto.codigo     
-                        }));
-
-            //abordagem elementar            
-            /*let novaLista= []
-            for (let i=0; i < props.listaDeProdutos.length; i++){
-                if (props.listaDeProdutos[i].codigo != produto.codigo){
-                    novaLista.push(props.listaDeProdutos[i])
+            deletarProduto(produto)
+            .then((resultado)=>{
+                if (resultado.status){
+                    props.setListaDeProdutos(props.listaDeProdutos.filter(
+                        (item)=>{
+                            return item.codigo != produto.codigo
+                        }
+                    ));
                 }
-            }
-            props.setListaDeProdutos(novaLista);*/
+                else{
+                    window.alert(resultado.mensagem);
+                }
+            });
         }
     }
 

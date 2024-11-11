@@ -3,14 +3,14 @@ import FormCadProdutos from "./Formularios/FormCadProduto";
 import Pagina from "../layouts/Pagina";
 import { useEffect, useState } from "react";
 import TabelaProdutos from "./Tabelas/TabelaProdutos";
-import { consultarProduto } from "../../servicos/servicoProdutos";
 //import { produtos } from "../../dados/mockProdutos";
+import { consultarProduto } from "../../servicos/servicoProduto";
 
 export default function TelaCadastroProduto(props) {
     const [exibirTabela, setExibirTabela] = useState(true);
-    const [listaDeProdutos, setListaDeProdutos] = useState(produtos);
+    const [listaDeProdutos, setListaDeProdutos] = useState([]);
     const [modoEdicao, setModoEdicao] = useState(false);
-    //const [produtos, setProdutos] = useState([])
+    //const [produtos, setProdutos] = useState([]);
     const [produtoSelecionado, setProdutoSelecionado] = useState({
         codigo:0,
         descricao:"",
@@ -20,13 +20,14 @@ export default function TelaCadastroProduto(props) {
         urlImagem:"",
         dataValidade:"",
         categoria: {}
+
     });
 
     useEffect(()=>{
         consultarProduto().then((lista)=>{
-            setListaDeProdutos(lista)
+            setListaDeProdutos(lista);
         });
-    },[]); //listavazia -> didMount
+    },[]); //listaVazia -> didMount
    
     return (
         <div>
